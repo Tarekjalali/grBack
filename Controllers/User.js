@@ -1,6 +1,6 @@
 const User = require('../Models/User')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 const EventApplication = require('../Models/EventApplication')
 const Event = require('../Models/Event')
 
@@ -19,8 +19,8 @@ exports.Register =async(req,res)=>{
         const userData = new User(req.body)
 
         const saltRounds = 10;
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hashedPassword = bcrypt.hashSync(password, salt)
+        const salt = bcryptjs.genSaltSync(saltRounds);
+        const hashedPassword = bcryptjs.hashSync(password, salt)
 
         userData.password=hashedPassword
 
@@ -53,7 +53,7 @@ exports.SignIn = async(req,res)=>{
 
             if(!userData){return res.status(400).send({errors : [{msg : 'wrong email password'}]})}
 
-            const matched = bcrypt.compareSync(password, userData.password); 
+            const matched = bcryptjs.compareSync(password, userData.password); 
 
             if(!matched){
                 return res.status(400).send({errors : [{msg : "wrong email password"}]})

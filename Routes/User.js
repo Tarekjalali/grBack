@@ -5,7 +5,7 @@ const { IsAuthorized } = require('../MiddleWares/IsAuthorized')
 const { Register, SignIn, currentUser, deleteUser, updateProfile, getAllUsers } = require('../Controllers/User')
 const User = require('../Models/User')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 
 
 const userRouter = express.Router()
@@ -41,7 +41,7 @@ userRouter.post('/createAdmin', async (req, res) => {
         }
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 10);
 
         // Create and save the new admin user
         const adminUser = new User({
