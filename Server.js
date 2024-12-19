@@ -5,9 +5,13 @@ const userRouter = require('./Routes/User');
 const eventRouter = require('./Routes/Event');
 const appRouter = require('./Routes/EventApplication');
 const newsRouter = require('./Routes/News');
+const cors = require('cors'); // Import the cors package
 
 const app = express();
 require('dotenv').config();
+
+// Enable CORS for all routes
+app.use(cors()); // This will allow all domains to access your server
 
 app.use(express.json());
 ConnectDB();
