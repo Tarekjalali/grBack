@@ -12,7 +12,7 @@ appRouter.post('/applyToEvent', async (req, res) => {
       const found = await EventApplication.findOne(req.body)
 
       if (found) {
-        return res.status(400).send("yezzik")
+        return res.status(400).send({errors : [{msg : 'email already exists'}]})
       }
       
       const application = new EventApplication(req.body);
